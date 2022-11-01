@@ -14,6 +14,10 @@ function Home() {
   const [bottomIndex, setBottomIndex] = useState(0);
   const [shoesIndex, setShoesIndex] = useState(0);
 
+  const [topChecked, setTopChecked] = useState(false);
+  const [bottomChecked, setBottomChecked] = useState(false);
+  const [shoesChecked, setShoesChecked] = useState(false);
+
   const { data: { things: { edges } } } = mockData;
 
   const tops = edges.filter((it) => it.node.characteristics.edges.find((it) => it.node.option.value === "top"))
@@ -28,9 +32,15 @@ function Home() {
 
   // onclick handler for generate button
   const generate = () => {
-    setTopIndex(getRandomInt(tops.length - 1));
-    setBottomIndex(getRandomInt(bottoms.length - 1));
-    setShoesIndex(getRandomInt(shoes.length - 1));
+    if (topChecked === false) {
+      setTopIndex(getRandomInt(tops.length - 1));
+    }
+    if (bottomChecked === false) {
+      setBottomIndex(getRandomInt(bottoms.length - 1));
+    }
+    if (shoesChecked === false) {
+      setShoesIndex(getRandomInt(shoes.length - 1));
+    }
   }
 
   return (
@@ -46,9 +56,18 @@ function Home() {
 
       <section id="clothing">
         <div class="flex flex-col w-96 p-6 mx-auto justify-center">
-          <Clothing imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shirt"} />
-          <Clothing imageSource={bottoms[bottomIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"bottom"} />
-          <Clothing imageSource={shoes[shoesIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shoes"} />
+          <Clothing imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shirt"} >
+            <label class="label cursor-pointer">
+              <input
+                type="checkbox"
+                checked={topChecked}
+                class="checkbox checkbox-primary absolute right-1 top-1"
+                onChange={() => setTopChecked(!checked)}
+              />
+            </label>
+          </Clothing>
+          <Clothing imageSource={bottoms[bottomIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"bottom"} checked={bottomChecked} onChange={() => setBottomChecked(!bottomChecked)} />
+          <Clothing imageSource={shoes[shoesIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shoes"} checked={shoesChecked} onChange={() => setShoesChecked(!shoesChecked)} />
         </div>
       </section>
 

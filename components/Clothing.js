@@ -4,17 +4,15 @@ import { useState } from 'react';
 
 function Clothing({ imageSource, imageAlt }) {
 
-    const [checked, setChecked] = useState(false);
-
     return <>
         <div
-            class="grid h-64 card bg-base-300 rounded-box relative my-4">
+            class="grid h-64 card bg-base-300 rounded-box relative">
             <Image
                 src={imageSource}
                 alt={imageAlt}
                 layout="fill">
             </Image>
-            <label class="label cursor-pointer">
+            {/* <label class="label cursor-pointer">
                 <input
                     type="checkbox"
                     checked={checked}
@@ -22,7 +20,7 @@ function Clothing({ imageSource, imageAlt }) {
                     onChange={() => setChecked(!checked)}
 
                 />
-            </label>
+            </label> */}
         </div>
     </>
 }
