@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
 import Link from 'next/link'
+import { useUser } from '@auth0/nextjs-auth0';
 
 
 const Navbar = ({ generate }) => {
+  const { user, isLoading } = useUser();
   return (
     <nav class="relative container mx-auto">
 
@@ -38,6 +40,22 @@ const Navbar = ({ generate }) => {
             </li> */}
           </ul>
         </div>
+        <div className="flex justify-center">
+            {isLoading ? null : (
+              <>
+                {user ? (
+                  <a href="/api/auth/logout">
+                    <p>{user.nickname}</p>
+                    <button className="btn normal-case">logout</button>
+                  </a>
+                ) : (
+                  <a href="/api/auth/login">
+                    <button className="btn normal-case">login</button>
+                  </a>
+                )}
+              </>
+            )}
+          </div>
       </div>
     </nav>
   )
