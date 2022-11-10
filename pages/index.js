@@ -56,16 +56,7 @@ function Home() {
 
       <section id="clothing">
         <div class="flex flex-col w-96 p-6 mx-auto justify-center">
-          <Clothing imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shirt"} >
-            <label class="label cursor-pointer">
-              <input
-                type="checkbox"
-                checked={topChecked}
-                class="checkbox checkbox-primary absolute right-1 top-1"
-                onChange={() => setTopChecked(!checked)}
-              />
-            </label>
-          </Clothing>
+          <Clothing imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shirt"} checked={topChecked} onChange={() => setTopChecked(!topChecked)}></Clothing>
           <Clothing imageSource={bottoms[bottomIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"bottom"} checked={bottomChecked} onChange={() => setBottomChecked(!bottomChecked)} />
           <Clothing imageSource={shoes[shoesIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shoes"} checked={shoesChecked} onChange={() => setShoesChecked(!shoesChecked)} />
         </div>

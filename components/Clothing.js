@@ -2,7 +2,7 @@ import Image from "next/image"
 import { useState } from 'react';
 
 
-function Clothing({ imageSource, imageAlt }) {
+function Clothing({ imageSource, imageAlt, checked, onChange }) {
 
     return <>
         <div
@@ -12,15 +12,15 @@ function Clothing({ imageSource, imageAlt }) {
                 alt={imageAlt}
                 layout="fill">
             </Image>
-            {/* <label class="label cursor-pointer">
+            <label class="label cursor-pointer">
                 <input
                     type="checkbox"
                     checked={checked}
                     class="checkbox checkbox-primary absolute right-1 top-1"
-                    onChange={() => setChecked(!checked)}
+                    onChange={onChange}
 
                 />
-            </label> */}
+            </label>
         </div>
     </>
 }
