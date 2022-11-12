@@ -44,14 +44,14 @@ const Navbar = ({ generate }) => {
             {isLoading ? null : (
               <>
                 {user ? (
-                  <a href="/api/auth/logout">
+                  <Link href="/api/auth/logout">
                     <p>{user.nickname}</p>
                     <button className="btn normal-case">logout</button>
-                  </a>
+                  </Link>
                 ) : (
-                  <a href="/api/auth/login">
+                  <Link href="/api/auth/login">
                     <button className="btn normal-case">login</button>
-                  </a>
+                  </Link>
                 )}
               </>
             )}
