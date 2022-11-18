@@ -2,7 +2,7 @@ import Image from "next/image"
 import { useState } from 'react';
 
 
-function Clothing({ imageSource, imageAlt, checked, onChange }) {
+function Clothing({ imageSource, imageAlt, checked, onChange, clothing }) {
 
     return <>
         <div

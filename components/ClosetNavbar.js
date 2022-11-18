@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useUser } from '@auth0/nextjs-auth0';
 
 
-const Navbar = ({ generate }) => {
+const ClosetNavbar = ({ generate }) => {
   const { user, isLoading } = useUser();
   return (
       <div class="navbar bg-black">
@@ -13,30 +13,15 @@ const Navbar = ({ generate }) => {
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
           </button>
         </Link>
-        <div class="flex-1 bg-black">
-          <select class="select select-ghost select-bordered w-full max-w-xs text-xs">
-            <option disabled selected>Occasion</option>
-            <option>Going out</option>
-            <option>Going to work</option>
-            <option>Working out</option>
-          </select>
-        </div>
         <div class="flex-none">
           <ul class="menu menu-horizontal">
-            <li>
-              <Link href="/closet">
-                <button
-                  class="btn btn-outline btn-primary rounded-xl"
-                >Closet
-                </button>
-              </Link>
-            </li>
-            <li>
+            
+            <Link href='/'>
               <button
                 class="btn btn-outline btn-primary rounded-xl"
                 onClick={generate}>Generate
               </button>
-            </li>
+            </Link>
             {/* <li>
               <button
                 class="btn px-1 gap-2 rounded-xl"
@@ -67,4 +52,4 @@ const Navbar = ({ generate }) => {
   )
 }
 
-export default Navbar;
+export default ClosetNavbar;

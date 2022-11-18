@@ -4,9 +4,13 @@ import Link from 'next/link'
 import Clothing from '../components/Clothing'
 import Container from '../layouts/Container'
 import Navbar from '../components/Navbar'
-import { useState } from 'react'
+
+import prisma from '../lib/prisma'
 
 import { mockData } from '../mock/mock'
+import { useState } from 'react'
+
+
 
 
 function Home() {
@@ -55,7 +59,7 @@ function Home() {
 
 
       <section id="clothing">
-        <div class="flex flex-col w-96 p-6 mx-auto justify-center">
+        <div class="grid grid-cols-1 gap-x-3.5 gap-y-6 m-1.5 md:grid-cols-4 md:flex flex-col w-96 p-6 mx-auto justify-center">
           <Clothing imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shirt"} checked={topChecked} onChange={() => setTopChecked(!topChecked)}></Clothing>
           <Clothing imageSource={bottoms[bottomIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"bottom"} checked={bottomChecked} onChange={() => setBottomChecked(!bottomChecked)} />
           <Clothing imageSource={shoes[shoesIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shoes"} checked={shoesChecked} onChange={() => setShoesChecked(!shoesChecked)} />
