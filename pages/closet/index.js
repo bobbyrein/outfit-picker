@@ -5,6 +5,7 @@ import ClothingWOCheck from "../../components/ClothingWOCheck";
 import ClosetNavbar from "../../components/ClosetNavbar";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import MultiSelect from "../../components/MultiSelect";
 
 function Closet() {
   const {
@@ -69,14 +70,9 @@ Closet.getLayout = function getLayout(page) {
 
 const ClosetItem = ({ clothing }) => {
   return (
-    <div className="text-xs" key={clothing.id}>
+    <div className="text-sm" key={clothing.id}>
       <ClothingWOCheck clothing={clothing} imageAlt={"ClothingWOCheck"} />
-      <p className="m-0.5">tag(s): </p>
-      <input
-        type="text"
-        placeholder="add tag(s)"
-        className="input input-xs input-bordered w-full max-w-xs text-black"
-      />
+      <MultiSelect className="p-0.5" />
     </div>
   );
 };
