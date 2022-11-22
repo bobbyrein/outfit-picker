@@ -1,17 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import Clothing from '../components/Clothing'
-import Container from '../layouts/Container'
-import Navbar from '../components/Navbar'
-
-import prisma from '../lib/prisma'
-
-import { mockData } from '../mock/mock'
-import { useState } from 'react'
+import Head from "next/head";
+import Clothing from "../components/Clothing";
+import Navbar from "../components/Navbar";
+import Container from "../layouts/Container";
 
 
-
+import { useState } from "react";
+import { mockData } from "../mock/mock";
 
 function Home() {
   const [topIndex, setTopIndex] = useState(0);
@@ -22,12 +16,23 @@ function Home() {
   const [bottomChecked, setBottomChecked] = useState(false);
   const [shoesChecked, setShoesChecked] = useState(false);
 
-  const { data: { things: { edges } } } = mockData;
+  const {
+    data: {
+      things: { edges },
+    },
+  } = mockData;
 
-  const tops = edges.filter((it) => it.node.characteristics.edges.find((it) => it.node.option.value === "top"))
-  const bottoms = edges.filter((it) => it.node.characteristics.edges.find((it) => it.node.option.value === "bottom"))
-  const shoes = edges.filter((it) => it.node.characteristics.edges.find((it) => it.node.option.value === "shoes"))
-
+  const tops = edges.filter((it) =>
+    it.node.characteristics.edges.find((it) => it.node.option.value === "top")
+  );
+  const bottoms = edges.filter((it) =>
+    it.node.characteristics.edges.find(
+      (it) => it.node.option.value === "bottom"
+    )
+  );
+  const shoes = edges.filter((it) =>
+    it.node.characteristics.edges.find((it) => it.node.option.value === "shoes")
+  );
 
   // helper function to get random number
   function getRandomInt(max) {
@@ -45,7 +50,7 @@ function Home() {
     if (shoesChecked === false) {
       setShoesIndex(getRandomInt(shoes.length - 1));
     }
-  }
+  };
 
   return (
     <div class="bg-black h-screen">
@@ -57,23 +62,36 @@ function Home() {
 
       <Navbar generate={generate} />
 
-
       <section id="clothing">
         <div class="grid grid-cols-1 gap-x-3.5 gap-y-6 m-1.5 md:grid-cols-4 md:flex flex-col w-96 p-6 mx-auto justify-center">
-          <Clothing imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shirt"} checked={topChecked} onChange={() => setTopChecked(!topChecked)}></Clothing>
-          <Clothing imageSource={bottoms[bottomIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"bottom"} checked={bottomChecked} onChange={() => setBottomChecked(!bottomChecked)} />
-          <Clothing imageSource={shoes[shoesIndex].node.medias.edges[0].node.mediaUrl} imageAlt={"shoes"} checked={shoesChecked} onChange={() => setShoesChecked(!shoesChecked)} />
+          <Clothing
+            imageSource={tops[topIndex].node.medias.edges[0].node.mediaUrl}
+            imageAlt={"shirt"}
+            checked={topChecked}
+            onChange={() => setTopChecked(!topChecked)}
+          ></Clothing>
+          <Clothing
+            imageSource={
+              bottoms[bottomIndex].node.medias.edges[0].node.mediaUrl
+            }
+            imageAlt={"bottom"}
+            checked={bottomChecked}
+            onChange={() => setBottomChecked(!bottomChecked)}
+          />
+          <Clothing
+            imageSource={shoes[shoesIndex].node.medias.edges[0].node.mediaUrl}
+            imageAlt={"shoes"}
+            checked={shoesChecked}
+            onChange={() => setShoesChecked(!shoesChecked)}
+          />
         </div>
       </section>
-
-
     </div>
-  )
+  );
 }
 
 export default Home;
 
 Home.getLayout = function getLayout(page) {
-  return <Container>{page}</Container>
-}
-
+  return <Container>{page}</Container>;
+};
