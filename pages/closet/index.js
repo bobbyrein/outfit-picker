@@ -1,18 +1,20 @@
+import { useUser } from "@auth0/nextjs-auth0";
 import Head from "next/head";
-import Container from "../../layouts/Container";
-import { mockData } from "../../mock/mock";
-import ClothingWOCheck from "../../components/ClothingWOCheck";
+import { useEffect, useState } from "react";
 import ClosetNavbar from "../../components/ClosetNavbar";
-import Link from "next/link";
-import { useState, useEffect } from "react";
+import ClothingWOCheck from "../../components/ClothingWOCheck";
 import MultiSelect from "../../components/MultiSelect";
+import { useThingsByOwner } from "../../graphql/queries";
+import Container from "../../layouts/Container";
 
 function Closet() {
-  const {
-    data: {
-      things: { edges },
-    },
-  } = mockData;
+  const { user } = useUser();
+  const { data, isLoading, isError, error } = useThingsByOwner(
+    user && user.sub,
+    {
+      enabled: !!user,
+    }
+  );
   const [closet, setCloset] = useState([]);
   const [selector, setSelector] = useState("everything");
 
@@ -26,17 +28,17 @@ function Closet() {
 
   useEffect(() => {
     if (selector === "everything") {
-      setCloset(edges);
+      setCloset(data);
     } else {
-      const newFilteredCloset = edges.filter((it) => {
-        return it.node.characteristics.edges.find(
+      const newFilteredCloset = data.filter((it) => {
+        return it.node.characteristics.data.find(
           (it) => it.node.option.value === selector
         );
       });
 
       setCloset(newFilteredCloset);
     }
-  }, [edges, selector]);
+  }, [data, selector]);
 
   const handleChange = (event) => {
     setSelector(event.target.value);
@@ -54,9 +56,13 @@ function Closet() {
       <h2 className="text-center text-xl">Closet</h2>
       <div className="grid grid-cols-2 gap-x-3.5 gap-y-6 m-1.5 md:grid-cols-4">
         {/* replace edges with closet */}
-        {closet.map((it, index) => (
-          <ClosetItem key={it.node.id} clothing={it.node} />
-        ))}
+        {isLoading ? (
+          <p>Loading</p>
+        ) : (
+          closet?.map((it) => (
+            <ClosetItem key={it.node.id} clothing={it.node} />
+          ))
+        )}
       </div>
     </div>
   );
